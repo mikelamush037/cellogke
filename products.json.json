@@ -1,0 +1,125 @@
+{
+  "categories": [
+    {
+      "id": "mens",
+      "name": "Men's Wear",
+      "description": "Premium men's clothing and accessories",
+      "image": "https://images.unsplash.com/photo-1558769132-cb1edd1b160a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "productCount": 124
+    },
+    {
+      "id": "womens",
+      "name": "Women's Wear",
+      "description": "Elegant women's fashion collection",
+      "image": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "productCount": 156
+    },
+    {
+      "id": "kids",
+      "name": "Kids Fashion",
+      "description": "Adorable clothing for children",
+      "image": "https://images.unsplash.com/photo-1544441893-675973e31985?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "productCount": 89
+    },
+    {
+      "id": "school",
+      "name": "School Accessories",
+      "description": "Everything for back to school",
+      "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "productCount": 67
+    },
+    {
+      "id": "shoes",
+      "name": "Shoes",
+      "description": "Footwear for all occasions",
+      "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "productCount": 92
+    },
+    {
+      "id": "accessories",
+      "name": "Accessories",
+      "description": "Bags, jewelry, and more",
+      "image": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "productCount": 78
+    }
+  ],
+  "featuredProducts": [
+    {
+      "id": 1,
+      "name": "Men's Premium Casual Shirt - Blue Check",
+      "category": "mens",
+      "price": 1299,
+      "originalPrice": 1699,
+      "discount": 20,
+      "image": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "rating": 4.2,
+      "reviewCount": 42,
+      "description": "Premium cotton casual shirt with check pattern. Perfect for office and casual wear.",
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["Blue", "White", "Gray"]
+    },
+    {
+      "id": 2,
+      "name": "Women's Summer Floral Dress - Yellow",
+      "category": "womens",
+      "price": 2499,
+      "image": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "rating": 4.8,
+      "reviewCount": 56,
+      "description": "Lightweight summer dress with floral pattern. Perfect for sunny days and casual outings.",
+      "sizes": ["S", "M", "L"],
+      "colors": ["Yellow", "Pink", "White"]
+    },
+    {
+      "id": 3,
+      "name": "Men's Casual Sneakers - White & Blue",
+      "category": "shoes",
+      "price": 3499,
+      "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "rating": 4.3,
+      "reviewCount": 38,
+      "description": "Comfortable casual sneakers with breathable material. Suitable for daily wear.",
+      "sizes": ["40", "41", "42", "43", "44"],
+      "colors": ["White/Blue", "Black", "Gray"]
+    },
+    {
+      "id": 4,
+      "name": "Kids T-Shirt & Shorts Set - 3 Pieces",
+      "category": "kids",
+      "price": 1199,
+      "originalPrice": 1499,
+      "discount": 15,
+      "image": "https://images.unsplash.com/photo-1544441893-675973e31985?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "rating": 4.7,
+      "reviewCount": 27,
+      "description": "Comfortable 3-piece set for kids. Includes t-shirt and matching shorts.",
+      "sizes": ["2-3 Years", "4-5 Years", "6-7 Years", "8-9 Years"],
+      "colors": ["Blue", "Red", "Green"]
+    },
+    {
+      "id": 5,
+      "name": "Waterproof School Backpack - 20L",
+      "category": "school",
+      "price": 2199,
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "rating": 4.9,
+      "reviewCount": 89,
+      "description": "Durable waterproof backpack for school. Multiple compartments for organization.",
+      "colors": ["Black", "Blue", "Red", "Gray"]
+    },
+    {
+      "id": 6,
+      "name": "Women's Office Blazer - Navy Blue",
+      "category": "womens",
+      "price": 3999,
+      "originalPrice": 4599,
+      "discount": 13,
+      "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "rating": 4.6,
+      "reviewCount": 34,
+      "description": "Professional office blazer made from premium fabric. Perfect for formal occasions.",
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["Navy Blue", "Black", "Gray"]
+    }
+  ]
+}

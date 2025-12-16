@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Products - CELLOGSMARTWEARKENYA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        .upload-page {
+            padding: 40px 0;
+            min-height: calc(100vh - 200px);
+            background-color: var(--pale-blue);
+        }
+        
+        .upload-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        .page-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .page-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 40px;
+        }
+        
+        .upload-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .upload-steps::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background-color: var(--light-blue);
+            z-index: 1;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 0 auto 10px;
+            font-size: 1.2rem;
+            border: 3px solid white;
+        }
+        
+        .step.active .step-number {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background-color: var(--accent-yellow);
+            color: var(--dark);
+        }
+        
+        .step-label {
+            font-weight: 600;
+            color: var(--gray);
+        }
+        
+        .step.active .step-label {
+            color: var(--primary-blue);
+        }
+        
+        .upload-section {
+            display: none;
+        }
+        
+        .upload-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--primary-blue);
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            background-color: var(--pale-blue);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 20px;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--accent-yellow);
+            background-color: var(--light-yellow);
+        }
+        
+        .upload-area i {
+            font-size: 4rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+        
+        .upload-area h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        .upload-hint {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .preview-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 150px;
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--error);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--pale-blue);
+        }
+        
+        .category-grid-upload {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .category-option {
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-option:hover {
+            border-color: var(--primary-blue);
+            background-color: var(--pale-blue);
+        }
+        
+        .category-option.selected {
+            border-color: var(--accent-yellow);
+            background-color: var(--light-yellow);
+        }
+        
+        .category-option i {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        .price-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .price-input span {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .review-item {
+            background-color: var(--pale-blue);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .review-label {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+        
+        .review-value {
+            color: var(--dark);
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .success-message i {
+            font-size: 5rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+        
+        .success-message h2 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .upload-container {
+                padding: 20px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .upload-steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .upload-steps::before {
+                display: none;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .form-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 🔝 Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="container">
+            <div class="announcement-content">
+                <span><i class="fas fa-truck"></i> FREE Delivery in Nairobi for orders over KES 3,000</span>
+                <span><i class="fas fa-gift"></i> 10% OFF School Accessories - Use Code: SCHOOL10</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo-section">
+                    <a href="index.html" class="logo-container">
+                        <div class="logo-icon">CSK</div>
+                        <div>
+                            <div class="logo-text">CELLOG<span>SMARTWEAR</span>KENYA</div>
+                            <div class="tagline">Kenya's #1 Online Fashion & School Store</div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="action-item contact-info">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <div class="action-value">0780 259 386</div>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <a href="index.html" style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-home"></i>
+                            <div>
+                                <div class="action-value">Back to Home</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Upload Page Content -->
+    <section class="upload-page">
+        <div class="container">
+            <div class="upload-container">
+                <h1 class="page-title">Sell Your Products</h1>
+                <p class="page-subtitle">Reach thousands of customers on Kenya's #1 online fashion platform</p>
+                
+                <!-- Upload Steps -->
+                <div class="upload-steps">
+                    <div class="step active" id="step1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Product Details</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Upload Images</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Set Price</div>
+                    </div>
+                    <div class="step" id="step4">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Review & Submit</div>
+                    </div>
+                </div>
+                
+                <!-- Step 1: Product Details -->
+                <div class="upload-section active" id="section1">
+                    <h2 style="color: var(--primary-blue); margin-bottom: 20px;">Product Information</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Product Title *</label>
+                        <input type="text" class="form-control" id="productTitle" placeholder="e.g., Men's Casual Shirt - Blue Check" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Product Description *</label>
+                        <textarea class="form-control" id="productDescription" rows="4" placeholder="Describe your product in detail (size, material, condition, etc.)" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Select Category *</label>
+                        <div class="category-grid-upload">
+                            <div class="category-option" data-category="mens">
+                                <i class="fas fa-male"></i>
+                                <div>Men's Wear</div>
+                            </div>
+                            <div class="category-option" data-category="womens">
+                                <i class="fas fa-female"></i>
+                                <div>Women's Wear</div>
+                            </div>
+                            <div class="category-option" data-category="kids">
+                                <i class="fas fa-child"></i>
+                                <div>Kids Fashion</div>
+                            </div>
+                            <div class="category-option" data-category="school">
+                                <i class="fas fa-graduation-cap"></i>
+                                <div>School Items</div>
+                            </div>
+                            <div class="category-option" data-category="shoes">
+                                <i class="fas fa-shoe-prints"></i>
+                                <div>Shoes</div>
+                            </div>
+                            <div class="category-option" data-category="accessories">
+                                <i class="fas fa-tshirt"></i>
+                                <div>Accessories</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="selectedCategory" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Condition *</label>
+                        <select class="form-control" id="productCondition" required>
+                            <option value="">Select Condition</option>
+                            <option value="new">New with tags</option>
+                            <option value="like_new">Like New</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="nextStep(2)">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Upload Images -->
+                <div class="upload-section" id="section2">
+                    <h2 style="color: var(--primary-blue); margin-bottom: 20px;">Upload Product Images</h2>
+                    
+                    <div class="upload-area" id="dropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drag & Drop Images Here</h3>
+                        <p class="upload-hint">or click to browse files</p>
+                        <p class="upload-hint">Recommended: 4-8 images, JPG/PNG format, max 5MB each</p>
+                        <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="image-preview" id="imagePreview">
+                        <!-- Images will be previewed here -->
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="prevStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn" onclick="nextStep(3)">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Set Price -->
+                <div class="upload-section" id="section3">
+                    <h2 style="color: var(--primary-blue); margin-bottom: 20px;">Set Your Price</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Price in KES *</label>
+                        <div class="price-input">
+                            <span>KES</span>
+                            <input type="number" class="form-control" id="productPrice" placeholder="e.g., 1499" min="100" max="100000" required>
+                        </div>
+                        <p class="upload-hint">Enter price in Kenya Shillings. Minimum KES 100, maximum KES 100,000</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Original Price (Optional)</label>
+                        <div class="price-input">
+                            <span>KES</span>
+                            <input type="number" class="form-control" id="originalPrice" placeholder="e.g., 1999" min="100" max="100000">
+                        </div>
+                        <p class="upload-hint">If your product is on sale, enter the original price here</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Quantity Available *</label>
+                        <input type="number" class="form-control" id="productQuantity" placeholder="e.g., 1" min="1" max="100" value="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Size (if applicable)</label>
+                        <select class="form-control" id="productSize">
+                            <option value="">Select Size</option>
+                            <option value="xs">XS</option>
+                            <option value="s">S</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                            <option value="xxl">XXL</option>
+                            <option value="custom">Custom Size</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Color (if applicable)</label>
+                        <input type="text" class="form-control" id="productColor" placeholder="e.g., Blue, Red, Black">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn" onclick="nextStep(4)">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Review & Submit -->
+                <div class="upload-section" id="section4">
+                    <h2 style="color: var(--primary-blue); margin-bottom: 20px;">Review & Submit</h2>
+                    
+                    <div class="review-item">
+                        <div class="review-label">Product Title</div>
+                        <div class="review-value" id="reviewTitle"></div>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-label">Category</div>
+                        <div class="review-value" id="reviewCategory"></div>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-label">Condition</div>
+                        <div class="review-value" id="reviewCondition"></div>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-label">Price</div>
+                        <div class="review-value" id="reviewPrice"></div>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-label">Quantity</div>
+                        <div class="review-value" id="reviewQuantity"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your Contact Information</label>
+                        <input type="text" class="form-control" id="sellerName" placeholder="Your Name" required>
+                        <input type="tel" class="form-control" id="sellerPhone" placeholder="Phone Number (e.g., 0780 259 386)" required style="margin-top: 10px;">
+                        <input type="email" class="form-control" id="sellerEmail" placeholder="Email Address (optional)" style="margin-top: 10px;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="termsAgree" required> 
+                            I agree to the <a href="#" style="color: var(--primary-blue);">Terms & Conditions</a> and confirm this product is authentic
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn btn-yellow" onclick="submitProduct()">Submit Product</button>
+                    </div>
+                </div>
+                
+                <!-- Success Message -->
+                <div class="upload-section" id="section5" style="display: none;">
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h2>Product Submitted Successfully!</h2>
+                        <p>Your product is now being reviewed by our team. It will be live on the site within 24 hours.</p>
+                        <p>You will receive a confirmation SMS once it's approved.</p>
+                        <div style="margin-top: 30px;">
+                            <a href="index.html" class="btn" style="margin-right: 15px;">Back to Home</a>
+                            <a href="#" class="btn btn-outline">Sell Another Item</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 👣 Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon" style="width: 40px; height: 40px; font-size: 1.2rem;">CSK</div>
+                        CELLOG<span>SMARTWEAR</span>KENYA
+                    </div>
+                    <p>Kenya's leading online fashion & school accessories store. We deliver quality, affordable fashion for the whole family with the convenience of online shopping and secure M-Pesa payments.</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Shop All</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Men's Wear</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Women's Wear</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Kids Fashion</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> School Accessories</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">For Sellers</h3>
+                    <ul>
+                        <li><a href="upload.html"><i class="fas fa-chevron-right"></i> Sell Products</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Seller Dashboard</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Commission Rates</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Shipping Guide</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Seller FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Contact Information</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> <div>KOMA Market, Kangundo Road<br>Nairobi, Kenya</div></li>
+                        <li><i class="fas fa-phone"></i> <div>0780 259 386<br>020 123 4567</div></li>
+                        <li><i class="fas fa-envelope"></i> <div>info@cellogsmartwearkenya.com<br>sellers@cellogsmartwearkenya.com</div></li>
+                        <li><i class="fas fa-clock"></i> <div>Mon-Sat: 8:00 AM - 8:00 PM<br>Sun: 10:00 AM - 6:00 PM</div></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 CELLOGSMARTWEARKENYA. All rights reserved. | Located at KOMA Market, Kangundo Road, Nairobi | 
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Cookie Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Upload Page JavaScript
+        let currentStep = 1;
+        let uploadedImages = [];
+        let selectedCategory = '';
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupUploadPage();
+        });
+        
+        function setupUploadPage() {
+            // Category selection
+            document.querySelectorAll('.category-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.category-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    selectedCategory = this.getAttribute('data-category');
+                    document.getElementById('selectedCategory').value = selectedCategory;
+                });
+            });
+            
+            // File upload
+            const dropArea = document.getElementById('dropArea');
+            const fileInput = document.getElementById('fileInput');
+            
+            dropArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Drag and drop
+            dropArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropArea.style.borderColor = 'var(--accent-yellow)';
+                dropArea.style.backgroundColor = 'var(--light-yellow)';
+            });
+            
+            dropArea.addEventListener('dragleave', () => {
+                dropArea.style.borderColor = 'var(--primary-blue)';
+                dropArea.style.backgroundColor = 'var(--pale-blue)';
+            });
+            
+            dropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropArea.style.borderColor = 'var(--primary-blue)';
+                dropArea.style.backgroundColor = 'var(--pale-blue)';
+                
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+            });
+        }
+        
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            handleFiles(files);
+        }
+        
+        function handleFiles(files) {
+            const preview = document.getElementById('imagePreview');
+            
+            for (let i = 0; i < Math.min(files.length, 8); i++) {
+                const file = files[i];
+                
+                if (!file.type.match('image.*')) {
+                    alert('Please upload only image files');
+                    continue;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size should be less than 5MB');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    
+                    const removeBtn = document.createElement('div');
+                    removeBtn.className = 'remove-image';
+                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    removeBtn.addEventListener('click', function() {
+                        previewItem.remove();
+                        uploadedImages = uploadedImages.filter(img => img !== e.target.result);
+                    });
+                    
+                    previewItem.appendChild(img);
+                    previewItem.appendChild(removeBtn);
+                    preview.appendChild(previewItem);
+                    
+                    uploadedImages.push(e.target.result);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function nextStep(step) {
+            // Validate current step
+            if (!validateStep(currentStep)) {
+                return;
+            }
+            
+            // Update review if going to step 4
+            if (step === 4) {
+                updateReview();
+            }
+            
+            // Hide current section
+            document.getElementById(`section${currentStep}`).classList.remove('active');
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            // Mark current step as completed
+            document.getElementById(`step${currentStep}`).classList.add('completed');
+            
+            // Show next section
+            currentStep = step;
+            document.getElementById(`section${step}`).classList.add('active');
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function prevStep(step) {
+            // Hide current section
+            document.getElementById(`section${currentStep}`).classList.remove('active');
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            // Remove completed class from current step
+            document.getElementById(`step${currentStep}`).classList.remove('completed');
+            
+            // Show previous section
+            currentStep = step;
+            document.getElementById(`section${step}`).classList.add('active');
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function validateStep(step) {
+            switch(step) {
+                case 1:
+                    const title = document.getElementById('productTitle').value.trim();
+                    const description = document.getElementById('productDescription').value.trim();
+                    const category = document.getElementById('selectedCategory').value;
+                    const condition = document.getElementById('productCondition').value;
+                    
+                    if (!title || !description || !category || !condition) {
+                        alert('Please fill in all required fields');
+                        return false;
+                    }
+                    return true;
+                    
+                case 2:
+                    if (uploadedImages.length === 0) {
+                        alert('Please upload at least one product image');
+                        return false;
+                    }
+                    return true;
+                    
+                case 3:
+                    const price = document.getElementById('productPrice').value;
+                    const quantity = document.getElementById('productQuantity').value;
+                    
+                    if (!price || price < 100 || price > 100000) {
+                        alert('Please enter a valid price between KES 100 and KES 100,000');
+                        return false;
+                    }
+                    
+                    if (!quantity || quantity < 1 || quantity > 100) {
+                        alert('Please enter a valid quantity between 1 and 100');
+                        return false;
+                    }
+                    return true;
+                    
+                default:
+                    return true;
+            }
+        }
+        
+        function updateReview() {
+            // Update review section with entered data
+            document.getElementById('reviewTitle').textContent = document.getElementById('productTitle').value;
+            
+            const categoryMap = {
+                'mens': "Men's Wear",
+                'womens': "Women's Wear",
+                'kids': "Kids Fashion",
+                'school': "School Items",
+                'shoes': "Shoes",
+                'accessories': "Accessories"
+            };
+            document.getElementById('reviewCategory').textContent = categoryMap[selectedCategory] || 'Not selected';
+            
+            const conditionMap = {
+                'new': "New with tags",
+                'like_new': "Like New",
+                'good': "Good",
+                'fair': "Fair"
+            };
+            document.getElementById('reviewCondition').textContent = conditionMap[document.getElementById('productCondition').value] || 'Not selected';
+            
+            const price = document.getElementById('productPrice').value;
+            const originalPrice = document.getElementById('originalPrice').value;
+            let priceText = `KES ${parseInt(price).toLocaleString()}`;
+            if (originalPrice) {
+                priceText += ` (Original: KES ${parseInt(originalPrice).toLocaleString()})`;
+            }
+            document.getElementById('reviewPrice').textContent = priceText;
+            
+            document.getElementById('reviewQuantity').textContent = document.getElementById('productQuantity').value;
+        }
+        
+        function submitProduct() {
+            if (!validateStep(4)) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const sellerName = document.getElementById('sellerName').value.trim();
+            const sellerPhone = document.getElementById('sellerPhone').value.trim();
+            const termsAgree = document.getElementById('termsAgree').checked;
+            
+            if (!sellerName || !sellerPhone || !termsAgree) {
+                alert('Please fill in your contact information and agree to the terms');
+                return;
+            }
+            
+            // In a real implementation, this would send data to a server
+            // For now, simulate submission
+            
+            // Show success message
+            document.getElementById('section4').classList.remove('active');
+            document.getElementById('section5').style.display = 'block';
+            
+            // Mark all steps as completed
+            for (let i = 1; i <= 4; i++) {
+                const step = document.getElementById(`step${i}`);
+                step.classList.add('completed');
+                step.classList.remove('active');
+            }
+            
+            // Log submission (in real app, send to server)
+            console.log('Product submitted:', {
+                title: document.getElementById('productTitle').value,
+                category: selectedCategory,
+                price: document.getElementById('productPrice').value,
+                seller: sellerName,
+                phone: sellerPhone
+            });
+        }
+    </script>
+</body>
+</html>
